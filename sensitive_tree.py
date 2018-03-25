@@ -27,13 +27,13 @@ class SensitiveTree(object):
     def fetch_sensitive_lines(self):
         sensitive_lines = []
         if "pron" in self.tree_types:
-            with open(porn_resource_path) as f:
+            with open(porn_resource_path, 'r', errors='ignore') as f:
                 sensitive_lines.extend(f.readlines())
         if "political" in self.tree_types:
-            with open(political_resource_path) as f:
+            with open(political_resource_path, 'r', errors='ignore') as f:
                 sensitive_lines.extend(f.readlines())
         if "custom" in self.tree_types:
-            with open(custom_resource_path) as f:
+            with open(custom_resource_path, 'r', errors='ignore') as f:
                 sensitive_lines.extend(f.readlines())
 
         return sensitive_lines

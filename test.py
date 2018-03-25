@@ -1,7 +1,7 @@
 # vim: ts=4:sw=4:sts=4:et
 # -*- coding:utf-8 -*-
 
-from sensitive_filter import SensitiveFilter
+from .sensitive_filter import SensitiveFilter
 
 if __name__ == "__main__":
     check_value = "h&图, dsfdf援交"
