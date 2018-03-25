@@ -1,5 +1,5 @@
 
-# 敏感词过滤
+# 敏感词过滤 python3
 ```
 	测试过滤效果
 	python -m speachless.test
@@ -33,3 +33,6 @@ sf.find_sensitive_words(check_value)
 sf.replace_sensitive_words(check_value)
 sf.replace_sensitive_words("我没有任何问题")
 ```
+
+# to do
+  change to python3
