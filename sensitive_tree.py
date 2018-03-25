@@ -18,9 +18,11 @@ class SensitiveTree(object):
     """
 
     def __init__(self, tree_types=['pron', 'political', 'custom'],
-                 excludes=[" ", "$", "@", "&", "^", "\r"]):
+                 excludes=[" ", "$", "@", "&", "^", "\r", "\n"],
+                 key2unicode=False):
         self.excludes = excludes
         self.tree_types = tree_types
+        self.key2unicode = key2unicode
 
     def fetch_sensitive_lines(self):
         sensitive_lines = []
@@ -39,7 +41,9 @@ class SensitiveTree(object):
     def generate_sensitive_structure(self, sensitive_lines):
         root_node = dict()
         for words in sensitive_lines:
-            words = self.clear_words(words.decode("utf8"))
+            words = self.clear_words(words)
+            if self.key2unicode:
+                words = words.decode("utf-8")
             root_node = self.recursive_node(root_node, words)
         return root_node
 
@@ -56,7 +60,6 @@ class SensitiveTree(object):
                 "is_end": False}
 
     def clear_words(self, words):
-        words = words.replace("\n", "")
         for letter in self.excludes:
             words = words.replace(letter, "")
         return words
@@ -67,12 +70,11 @@ class SensitiveTree(object):
 
     def write2json_file(self, output_path):
         words_tree = self.fetch_sensitive_tree()
-        json_words_tree = json.dumps(words_tree)
         wf = open(output_path+"sensitive_words_tree.json", 'wb')
-        wf.write(json_words_tree)
+        json.dump(words_tree, wf)
         wf.close()
 
 
 if __name__ == "__main__":
-    st = SensitiveTree()
+    st = SensitiveTree(key2unicode=True)
     st.write2json_file("./dist/")
