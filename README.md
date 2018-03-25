@@ -1,9 +1,35 @@
-# to do - unicode 之后提交
 
-1. generate sensitive 里应该 可以指定 输入, 输出路径
+# 敏感词过滤
+```
+	测试过滤效果
+	python -m speachless.test
+```
 
-2. 支持 输入返还json 结构.
+## 简介
+* speachless/lib 敏感词库, 三个种类，涉政, 色情, 自定义.
+* speachless/sensitive_tree.SensitiveTree 根据词库中的敏感词构造检测tree
+* speachless/sensitive_filter.SensitiveFilter 检测输入内容是否与敏感词匹配
 
-3. 校验功能
 
-4. 敏感词收集, 领导人名称, 涉政治, 涉及色情
+## 使用
+
+
+git archive master | tar -x -C /project/xxx/speachless
+
+
+
+** 应该将以下对象 作为全局变量避免每次重新初始化 tree 造成额外开销 **
+
+```
+sensitive_tree = SensitiveTree().fetch_sensitive_tree()
+
+sf = SensitiveFilter(sensitive_tree=sensitive_tree,
+                                   excludes=["&", "*", "$", " "])
+
+
+check_value = "h&图, dsfdf援交"
+sf.sensitive_words_count(check_value)
+sf.find_sensitive_words(check_value)
+sf.replace_sensitive_words(check_value)
+sf.replace_sensitive_words("我没有任何问题")
+```

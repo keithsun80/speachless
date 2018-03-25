@@ -9,3 +9,4 @@ if __name__ == "__main__":
     print(sf.sensitive_words_count(check_value))
     print(sf.find_sensitive_words(check_value))
     print(sf.replace_sensitive_words(check_value))
+    print(sf.replace_sensitive_words("我没有任何问题"))
