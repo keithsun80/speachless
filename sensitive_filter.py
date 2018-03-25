@@ -13,34 +13,40 @@ class SensitiveFilter(object):
         self.sensitive_tree = sensitive_tree
         self.excludes = excludes
 
+    def fetch_node(self, node, keys_queue):
+        if not keys_queue:
+            return node
+        key = keys_queue[0]
+        child_node = node.get(key)
+        return self.fetch_node(child_node, keys_queue[1:])
+
     def sensitive_words_count(self, txt):
         txt = self.clear_words(txt)
-        match_tree = self.sensitive_tree.copy()
         match_count = 0
+        keys_queue = []
         for word in txt:
-            match = match_tree.get(word)
+            keys_queue.append(word)
+            match = self.fetch_node(self.sensitive_tree, keys_queue)
             if not match:
-                match_tree = self.sensitive_tree.copy()
+                keys_queue = []
                 continue
             if match.get("is_end"):
+                keys_queue = []
                 match_count += 1
-                match_tree = self.sensitive_tree.copy()
-            else:
-                match_tree = match
+
         return match_count
 
     def find_sensitive_words(self, txt):
         txt = self.clear_words(txt)
-        match_tree = self.sensitive_tree.copy()
+        keys_queue = []
         for word in txt:
-            match = match_tree.get(word)
+            keys_queue.append(word)
+            match = self.fetch_node(self.sensitive_tree, keys_queue)
             if not match:
-                match_tree = self.sensitive_tree.copy()
+                keys_queue = []
                 continue
             if match.get("is_end"):
                 return True
-            else:
-                match_tree = match
         return False
 
     def replace_sensitive_words(self, txt, replace="*"):
@@ -49,23 +55,23 @@ class SensitiveFilter(object):
                             "only support string type and not blank")
 
         txt = self.clear_words(txt)
-        match_tree = self.sensitive_tree.copy()
+        keys_queue = []
         replace_list = []
         cache_value = ""
         for word in txt:
-            match = match_tree.get(word)
+            keys_queue.append(word)
+            match = self.fetch_node(self.sensitive_tree, keys_queue)
             if not match:
+                keys_queue = []
                 cache_value = ""
                 match_tree = self.sensitive_tree.copy()
                 continue
 
             cache_value += word
             if match.get("is_end"):
-                match_tree = self.sensitive_tree.copy()
+                keys_queue = []
                 replace_list.append(cache_value)
                 cache_value = ""
-            else:
-                match_tree = match
 
         for sensitive_word in replace_list:
             txt = txt.replace(sensitive_word, replace*len(sensitive_word))
