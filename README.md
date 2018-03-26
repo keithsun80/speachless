@@ -36,6 +36,3 @@ sf.find_sensitive_words(check_value)
 sf.replace_sensitive_words(check_value)
 sf.replace_sensitive_words("我没有任何问题")
 ```
-
-# to do
-  change to python3
