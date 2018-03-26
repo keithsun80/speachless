@@ -6,10 +6,6 @@ import pkg_resources
 
 resource_package = __name__
 
-porn_resource_path = pkg_resources.resource_filename(__name__, '/'.join(('lib', 'sensitive_porn.txt')))
-political_resource_path = pkg_resources.resource_filename(__name__, '/'.join(('lib', 'sensitive_political.txt')))
-custom_resource_path = pkg_resources.resource_filename(__name__, '/'.join(('lib', 'sensitive_custom.txt')))
-
 
 class SensitiveTree(object):
     """
