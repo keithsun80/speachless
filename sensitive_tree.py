@@ -25,14 +25,14 @@ class SensitiveTree(object):
     def fetch_sensitive_lines(self):
         sensitive_lines = []
         if "pron" in self.tree_types:
-            with open(porn_resource_path, 'r', errors='ignore') as f:
-                sensitive_lines.extend(f.readlines())
+            from .lib import porn_arr
+            sensitive_lines.extend(porn_arr)
         if "political" in self.tree_types:
-            with open(political_resource_path, 'r', errors='ignore') as f:
-                sensitive_lines.extend(f.readlines())
+            from .lib import political_arr
+            sensitive_lines.extend(political_arr)
         if "custom" in self.tree_types:
-            with open(custom_resource_path, 'r', errors='ignore') as f:
-                sensitive_lines.extend(f.readlines())
+            from .lib import custom_arr
+            sensitive_lines.extend(custom_arr)
 
         return sensitive_lines
 
@@ -73,4 +73,4 @@ class SensitiveTree(object):
 
 if __name__ == "__main__":
     st = SensitiveTree()
-    st.write2json_file("./dist/")
+    st.write2json_file("./speachless/dist/")

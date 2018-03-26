@@ -3,6 +3,8 @@
 ```
 	测试过滤效果
 	python -m speachless.test
+  输出json文件 至 dist
+  python -m speachless.sensitive_tree
 ```
 
 ## 简介
