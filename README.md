@@ -36,3 +36,10 @@ sf.find_sensitive_words(check_value)
 sf.replace_sensitive_words(check_value)
 sf.replace_sensitive_words("我没有任何问题")
 ```
+
+# to do
+
+```
+  相似性匹配, 譬如haha图, 设定跨度值为1, 可以match h'*'图
+  跨度值合理范围？
+```
