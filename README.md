@@ -22,7 +22,7 @@ git archive master | tar -x -C /project/xxx/speachless
 
 
 ** 应该将以下对象 作为全局变量避免每次重新初始化 tree 造成额外开销 **
-
+** 当导入外部词库时， 应避免词库中存在特殊字符**
 ```
 sensitive_tree = SensitiveTree().fetch_sensitive_tree()
 
