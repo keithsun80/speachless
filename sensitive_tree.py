@@ -46,7 +46,8 @@ class SensitiveTree(object):
         if node:
             node[current_key] = self.recursive_node(node.get(current_key,
                                                     dict()), words[1:])
-            node['is_end'] = False
+            if not node.get('is_end'):
+                node['is_end'] = False
             return node
         return {current_key: self.recursive_node(dict(), words[1:]),
                 "is_end": False}

@@ -4,7 +4,7 @@
 from .sensitive_filter import SensitiveFilter
 
 if __name__ == "__main__":
-    check_value = "h&图, dsfdf援交"
+    check_value = "h&图, dsfdf援交, 温家宝"
     sf = SensitiveFilter(excludes=["&"])
     print(sf.sensitive_words_count(check_value))
     print(sf.find_sensitive_words(check_value))
